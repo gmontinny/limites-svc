@@ -1,0 +1,59 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'idea'
+	id "org.flywaydb.flyway" version "8.4.3"
+
+}
+
+group = 'com.coffeeandit'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.postgresql:postgresql:42.2.12'
+
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+
+	implementation 'org.flywaydb:flyway-core'
+
+	implementation "io.springfox:springfox-swagger2:2.9.2"
+	implementation "io.springfox:springfox-swagger-ui:2.9.2"
+
+	//Vault
+	implementation 'org.springframework.cloud:spring-cloud-starter-vault-config:3.0.0'
+	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:3.1.0'
+
+
+	//lombok
+	compileOnly 'org.projectlombok:lombok:1.18.22'
+	annotationProcessor 'org.projectlombok:lombok:1.18.22'
+
+	//Kafka
+	implementation ('org.springframework.kafka:spring-kafka')
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+flyway {
+	url = 'jdbc:postgresql://localhost:5432/limites'
+	user = 'postgres'
+	password = '1203'
+}
+
+build.dependsOn(flywayMigrate)
+
+
+/*test {
+	useJUnitPlatform()
+}*/
+

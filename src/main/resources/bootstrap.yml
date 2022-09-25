@@ -1,0 +1,65 @@
+server:
+  port: 8081
+spring:
+  cloud:
+    vault:
+      host: localhost
+      port: 8200
+      scheme: http
+      uri: http://localhost:8200
+      connection-timeout: 5000
+      read-timeout: 15000
+      token: vault-plaintext-root-token
+  config:
+    import: vault://secret/limites
+  autoconfigure:
+    exclude:
+      - org.springframework.cloud.aws.autoconfigure.context.ContextInstanceDataAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration
+      - org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      group-id: limites-svc
+      key-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-serializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: latest
+      enable-auto-commit:  true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/limites
+    hikari:
+      username: postgres
+      password: 1203
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL94Dialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    hibernate:
+      ddl-auto: update
+      generate-ddl: true
+      show-sql: true
+    generate-ddl: true
+
+limite:
+  valor: 2000
+
+app:
+  topic: transaction
+  returnTopic: transaction_extorno
+
+  document:
+    bucket-name: coffeeandit.limites
+
+  cloud:
+    aws:
+      region:
+        static: us-east-2
+        auto: false
+      credentials:
+        access-key: AKIA5OMSXO5FQMXIDLNQ
+        secret-key: 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
+  #GERAR AS SUAS CREDENCIAIS NO CONSOLE DA AWS.
+

@@ -1,0 +1,13 @@
+spring:
+  config:
+    import: vault://secret/limites/dev
+  datasource:
+    hikari:
+      username: ${dbusername}
+      password: ${dbpassword}
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${awsaccesskey}
+      secret-key: ${awssecretkey}

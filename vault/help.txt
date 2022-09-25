@@ -1,0 +1,5 @@
+export VAULT_ADDR='http://0.0.0.0:8200'
+export VAULT_TOKEN=vault-plaintext-root-token
+
+vault kv put secret/limites awsaccesskey=AKIA5OMSXO5FQMXIDLNQ awssecretkey=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 dbusername=limite dbpassword=limite_passwd
+vault kv get secret/limites
